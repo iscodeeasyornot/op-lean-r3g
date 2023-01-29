@@ -11,4 +11,22 @@
 #
 
 # Modify default IP
-#sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.0.1/g' package/base-files/files/bin/config_generate
+
+## add hnat for mt7621
+rm -rf target/linux/ramips
+cd target/linux
+svn co https://github.com/padavanonly/openwrt/trunk/target/linux/ramips
+cd ..
+cd ..
+
+## luci-app-mosdns
+# remove v2ray-geodata package from feeds (openwrt-22.03 & master)
+rm -rf feeds/packages/net/v2ray-geodata
+
+git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
+git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
+
+cd package
+git clone https://github.com/jerrykuku/luci-theme-argon.git
+cd ..
